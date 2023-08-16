@@ -1,14 +1,15 @@
 import './User.dart';
 
 class Prof extends User {
-
-  Prof(String name, String surname)
+  late String Materia;
+  Prof(String name, String surname,this.Materia)
       : super(name, surname);
 
   factory Prof.fromJson(Map<String, dynamic> json) {
     return Prof(
       json['Nome'],
       json['Cognome'],
+      json['Materia'],
     );
   }
 }

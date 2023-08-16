@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../Components/CustomAppBar.dart';
-import "../Models/User.dart";
 import '../Models/Prof.dart';
 import '../Models/Student.dart';
+import '../Components/BenvenutoStudente.dart';
 
 class Home extends StatefulWidget {
   Home({Key? key, this.loggedUser}) : super(key: key);
@@ -16,8 +16,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    print(widget.loggedUser.runtimeType);
-
     return Scaffold(
       appBar: const CustomAppBar(title: "Home"),
       body: Center(
@@ -28,22 +26,21 @@ class _HomeState extends State<Home> {
               ? Text(
                   "Benvenuto Professore ${widget.loggedUser.name} ${widget.loggedUser.surname}")
               : widget.loggedUser is Student
-                  ? Text(
-                      "Benvenuto Studente ${widget.loggedUser.name} ${widget.loggedUser.surname}")
+                  ? BenvenutoStud(stud: widget.loggedUser,)
                   : Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const <Widget>[
-                        Text("Benvenuto nella Home!"),
-                        Text(
+                      children: <Widget>[
+                        const Text("Benvenuto nella Home!"),
+                        const Text(
                             "loggati come Professore o come Studente per accedere ai contenuti!"),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/Login');
+                          },
+                          child: const Text('Login'),
+                        ),
                       ],
                     ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/Login');
-            },
-            child: const Text('Login'),
-          ),
         ],
       )),
     );

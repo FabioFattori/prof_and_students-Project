@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class MyForm extends StatefulWidget {
-  MyForm({Key? key, required this.controllers , this.login = false}) : super(key: key);
+  MyForm({Key? key, required this.controllers, required this.labels }) : super(key: key);
 
-  late bool login;
+  late List<String> labels;
   late List<TextEditingController> controllers;
 
   @override
@@ -15,23 +15,21 @@ class _MyFormState extends State<MyForm> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 200,
-      width: 200,
-      child: ListView.builder(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          itemCount: widget.controllers.length,
-          itemBuilder: (context, index) {
-            return Padding(
-                padding: const EdgeInsets.only(bottom: 8.0, top: 8.0),
-                child: TextFormField(
-                  maxLength: 20,
-                  controller: widget.controllers[index],
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    labelText: widget.login ? index%2==0 ? "inserisci il tuo nome" : "inserisci il tuo cognome" :  "Campo ${index + 1}",
-                  ),
-                ));
-          }),
+      width: 100,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          for (int i = 0; i < widget.labels.length; i++)
+             TextField(
+                controller: widget.controllers[i],
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: widget.labels[i],
+                ),
+              ),
+            
+        ],
+      )
     );
   }
 }

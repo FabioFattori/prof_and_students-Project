@@ -17,32 +17,59 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: "Home"),
-      body: Center(
+        appBar: const CustomAppBar(title: "Home"),
+        body: Center(
           child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          widget.loggedUser is Prof
-              ? Text(
-                  "Benvenuto Professore ${widget.loggedUser.name} ${widget.loggedUser.surname}")
-              : widget.loggedUser is Student
-                  ? BenvenutoStud(stud: widget.loggedUser,)
-                  : Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        const Text("Benvenuto nella Home!"),
-                        const Text(
-                            "loggati come Professore o come Studente per accedere ai contenuti!"),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/Login');
-                          },
-                          child: const Text('Login'),
-                        ),
-                      ],
-                    ),
-        ],
-      )),
-    );
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                widget.loggedUser is Prof
+                    ? Text(
+                        "Benvenuto Professore ${widget.loggedUser.name} ${widget.loggedUser.surname}")
+                    : widget.loggedUser is Student
+                        ? BenvenutoStud(
+                            stud: widget.loggedUser,
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.all(32.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                const Padding(
+                                  padding: EdgeInsets.all(16.0),
+                                  child: Text("Benvenuto nella Home!",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 32,
+                                          fontWeight: FontWeight.bold)),
+                                ),
+                                const Text(
+                                  "loggati come Professore o come Studente per accedere ai contenuti!",
+                                  textAlign: TextAlign.center,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Container(
+                                    width: 200,
+                                    height: 50,
+                                    child: ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                              context, '/Login');
+                                        },
+                                        child: const Padding(
+                                          padding: EdgeInsets.only(
+                                              right: 40, left: 40),
+                                          child: Text(
+                                            'Login',
+                                            style: TextStyle(fontSize: 24),
+                                          ),
+                                        )),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+              ]),
+        ));
   }
 }

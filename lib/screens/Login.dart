@@ -11,11 +11,11 @@ class Login extends StatefulWidget {
   List<Button> buttons = [
     Button(
         onPressedDirection: '/LogStud',
-        icon: const Icon(Icons.person_2),
+        icon: const Icon(Icons.person),
         label: const Text("Sei uno Studente con un account? Loggati!")),
     Button(
         onPressedDirection: '/LogProf',
-        icon: const Icon(Icons.person_4),
+        icon: const Icon(Icons.person_add_alt_1),
         label: const Text("Sei un Professore con un account? Loggati!")),
     Button(
         onPressedDirection: '/',

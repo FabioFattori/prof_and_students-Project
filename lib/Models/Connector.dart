@@ -54,7 +54,7 @@ class MyConnector {
 
   static Future<Prof> getProfessoreById(int id) async {
     var response = await http.get(Uri.parse(
-        "http://192.168.14.1/prof_and_students_back-Project/Api/getProfById.php?id=${id}"));
+        "http://192.168.14.1/prof_and_students_back-Project/Api/getProfById.php?id=$id"));
 
     dynamic body = jsonDecode(response.body);
 

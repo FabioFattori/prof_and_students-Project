@@ -6,14 +6,18 @@ import 'Student.dart';
 import 'Prof.dart';
 import 'Voto.dart';
 
+String _url = "https://understated-throttl.000webhostapp.com/Api";
+
 class MyConnector {
+  
+
   static Future<User> getStudente(String nome, String password) async {
-    var response = await http.get(Uri.parse(
-        "http://192.168.14.1/prof_and_students_back-Project/Api/Student.php?name=${nome}&p=${password}"));
+    var response = await http
+        .get(Uri.parse("$_url/Student.php?name=${nome}&p=${password}"));
 
     dynamic body = jsonDecode(response.body);
 
-    if (response.body != "[]" || body != null) {
+    if (response.body != "[]" || body.length != 0) {
       return Student.fromJson(body[0]);
       // return Student(body[0][1], body[0][2]);
     } else {
@@ -23,7 +27,7 @@ class MyConnector {
 
   static Future<User> getProfessore(String nome, String Cognome) async {
     var response = await http.get(Uri.parse(
-        "http://192.168.14.1/prof_and_students_back-Project/Api/Prof.php?name=${nome}&surname=${Cognome}"));
+        "$_url/Prof.php?name=${nome}&surname=${Cognome}"));
 
     dynamic body = jsonDecode(response.body);
 
@@ -36,7 +40,7 @@ class MyConnector {
 
   static Future<List<Voto>> getGradesForStudent(int id) async {
     var response = await http.get(Uri.parse(
-        "http://192.168.14.1/prof_and_students_back-Project/Api/getAllGrades.php?id=${id}"));
+        "$_url/getAllGrades.php?id=${id}"));
 
     dynamic body = jsonDecode(response.body);
 
@@ -54,14 +58,14 @@ class MyConnector {
 
   static Future<Prof> getProfessoreById(int id) async {
     var response = await http.get(Uri.parse(
-        "http://192.168.14.1/prof_and_students_back-Project/Api/getProfById.php?id=$id"));
+        "$_url/getProfById.php?id=$id"));
 
     dynamic body = jsonDecode(response.body);
 
     if (response.body != "[]") {
       return Prof.fromJson(body[0]);
     } else {
-      return Prof("", "","");
+      return Prof("", "", "");
     }
   }
 }

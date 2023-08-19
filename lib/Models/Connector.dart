@@ -9,8 +9,6 @@ import 'Voto.dart';
 String _url = "https://understated-throttl.000webhostapp.com/Api";
 
 class MyConnector {
-  
-
   static Future<User> getStudente(String nome, String password) async {
     var response = await http
         .get(Uri.parse("$_url/Student.php?name=${nome}&p=${password}"));
@@ -25,22 +23,24 @@ class MyConnector {
     }
   }
 
-  static Future<User> getProfessore(String nome, String Cognome) async {
-    var response = await http.get(Uri.parse(
-        "$_url/Prof.php?name=${nome}&surname=${Cognome}"));
+  static Future<User> getProfessore(String nome, String password) async {
+    var response =
+        await http.get(Uri.parse("$_url/Prof.php?name=${nome}&p=${password}"));
 
-    dynamic body = jsonDecode(response.body);
+    if (response.body != "<br>    ") {
+      dynamic body = jsonDecode(response.body);
 
-    if (response.body != "[]") {
-      return Prof.fromJson(body[0]);
-    } else {
-      return User("", "");
+      if (response.body != "[]" || body.length != 0) {
+        return Prof.fromJson(body[0]);
+      } else {
+        return User("", "");
+      }
     }
+    return User("", "");
   }
 
   static Future<List<Voto>> getGradesForStudent(int id) async {
-    var response = await http.get(Uri.parse(
-        "$_url/getAllGrades.php?id=${id}"));
+    var response = await http.get(Uri.parse("$_url/getAllGrades.php?id=${id}"));
 
     dynamic body = jsonDecode(response.body);
 
@@ -57,15 +57,32 @@ class MyConnector {
   }
 
   static Future<Prof> getProfessoreById(int id) async {
-    var response = await http.get(Uri.parse(
-        "$_url/getProfById.php?id=$id"));
+    var response = await http.get(Uri.parse("$_url/getProfById.php?id=$id"));
 
     dynamic body = jsonDecode(response.body);
 
     if (response.body != "[]") {
       return Prof.fromJson(body[0]);
     } else {
-      return Prof("", "", "");
+      return Prof(-1, "", "", "");
+    }
+  }
+
+  static Future<List<Student>> getStudentsOfProf(int id) async {
+    var response =
+        await http.get(Uri.parse("$_url/getAllStudentsOfAProf.php?id=$id"));
+
+    dynamic body = jsonDecode(response.body);
+
+    List<Student> toReturn = [];
+
+    if (response.body != "[]" || body.length != 0) {
+      for (var singleStudent in body) {
+        toReturn.add(Student.fromJson(singleStudent));
+      }
+      return toReturn;
+    } else {
+      return [];
     }
   }
 }

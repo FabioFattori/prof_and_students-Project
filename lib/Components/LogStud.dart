@@ -36,6 +36,7 @@ class _LogStudState extends State<LogStud> {
                 MyForm(
                   controllers: widget.StudentControllers,
                   labels: widget.labels,
+                  height: 200,
                 ),
                 ElevatedButton.icon(
                   onPressed: () async => {

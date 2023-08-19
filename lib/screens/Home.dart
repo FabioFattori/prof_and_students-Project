@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prof_and_studends/Components/BenvenutoProf.dart';
 import '../Components/CustomAppBar.dart';
 import '../Models/Prof.dart';
 import '../Models/Student.dart';
@@ -23,8 +24,8 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 widget.loggedUser is Prof
-                    ? Text(
-                        "Benvenuto Professore ${widget.loggedUser.name} ${widget.loggedUser.surname}")
+                    ? 
+                    BenvenutoProf(prof: widget.loggedUser)
                     : widget.loggedUser is Student
                         ? BenvenutoStud(
                             stud: widget.loggedUser,

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 class MyForm extends StatefulWidget {
-  MyForm({Key? key, required this.controllers, required this.labels})
+  MyForm({Key? key, required this.controllers, required this.labels,this.width =300 ,this.height=350})
       : super(key: key);
 
+  double? width;
+  double? height;
   late List<String> labels;
   late List<TextEditingController> controllers;
 
@@ -15,8 +17,8 @@ class _MyFormState extends State<MyForm> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: 350,
-        width: 300,
+        height: widget.height,
+        width: widget.width,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[

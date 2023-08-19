@@ -33,6 +33,7 @@ class _ProfLogState extends State<ProfLog> {
             MyForm(
               controllers: widget.ProfControllers,
               labels: widget.labels,
+              height: 200,
             ),
             ElevatedButton.icon(
               onPressed: () async => {

@@ -15,10 +15,10 @@ class _MyFormState extends State<MyForm> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: 200,
+        height: 350,
         width: 300,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             for (int i = 0; i < widget.labels.length; i++)
               TextField(

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:prof_and_studends/screens/CreateProf.dart';
+import 'package:prof_and_studends/screens/CreateStudent.dart';
 import 'package:prof_and_studends/screens/Login.dart';
 import 'screens/Home.dart';
 import 'Components/ProfLog.dart';
@@ -33,6 +35,11 @@ class RouteGenerator {
 
       case '/LogStud':
         return MaterialPageRoute(builder: (_) => LogStud());
+
+      case '/CreateStud':
+        return MaterialPageRoute(builder: (_) => CreateStudent());
+      case '/CreateProf':
+        return MaterialPageRoute(builder: (_) => CreateProf());
 
       default:
         return _errorRoute();

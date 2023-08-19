@@ -18,11 +18,11 @@ class Login extends StatefulWidget {
         icon: const Icon(Icons.person_add_alt_1),
         label: const Text("Sei un Professore con un account? Loggati!")),
     Button(
-        onPressedDirection: '/',
+        onPressedDirection: '/CreateStud',
         icon: const Icon(Icons.person_add),
         label: const Text("Crea il tuo account da Studente")),
     Button(
-        onPressedDirection: '/',
+        onPressedDirection: '/CreateProf',
         icon: const Icon(Icons.person_add_alt_1),
         label: const Text("Crea il tuo account da Professore")),
   ];

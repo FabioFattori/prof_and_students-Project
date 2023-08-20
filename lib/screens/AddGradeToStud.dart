@@ -43,8 +43,8 @@ class AddGrade extends StatelessWidget {
                         {
                           voto = Voto.withoutId(
                               double.parse(ProfControllers.text),
-                              student.id,
-                              prof.id),
+                              prof.id,
+                              student.id),
                           voto.searchForData(),
                           showCupertinoModalPopup(context: context, builder: (context) => CupertinoAlertDialog(
                             title: const Text("Voto aggiunto"),

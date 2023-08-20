@@ -21,7 +21,7 @@ class _HomeState extends State<Home> {
         appBar: const CustomAppBar(title: "Home"),
         body: Center(
           child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 widget.loggedUser is Prof
                     ? 

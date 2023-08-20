@@ -85,4 +85,18 @@ class MyConnector {
       return [];
     }
   }
+
+  static void addVoto(double voto , int idProf , int idStudente) async {
+     await http.get(Uri.parse("$_url/addVoto.php?voto=$voto&idProf=$idProf&idStudente=$idStudente"));
+  }
+
+
+  static Future<Prof> createProf(String nome,String Cognome,String Materia,String Password){
+    return http.get(Uri.parse("$_url/createProf.php?name=$nome&surname=$Cognome&materia=$Materia&p=$Password")).then((value) => Prof.fromJson(jsonDecode(value.body)[0]));
+  }
+
+  static Future<Student> createStudent(String nome,String Cognome,String Password){
+    return http.get(Uri.parse("$_url/createStudent.php?name=$nome&surname=$Cognome&p=$Password")).then((value) => Student.fromJson(jsonDecode(value.body)[0]));
+  }
+
 }

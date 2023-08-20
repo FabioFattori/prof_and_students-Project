@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:prof_and_studends/Models/Connector.dart';
+import 'package:prof_and_studends/Models/Student.dart';
+import 'package:prof_and_studends/screens/Home.dart';
 import '../Components/CustomAppBar.dart';
 import '../Components/MyForm.dart';
 
@@ -8,6 +11,8 @@ class CreateStudent extends StatelessWidget {
   List<TextEditingController> controllers = [
     TextEditingController(),
     TextEditingController(),
+  ];
+  List<TextEditingController> password = [
     TextEditingController(),
     TextEditingController(),
   ];
@@ -15,8 +20,6 @@ class CreateStudent extends StatelessWidget {
   List<String> labels = [
     "Nome",
     "Cognome",
-    "Password",
-    "Conferma Password",
   ];
 
   @override
@@ -33,9 +36,22 @@ class CreateStudent extends StatelessWidget {
                 MyForm(
                   controllers: controllers,
                   labels: labels,
+                  labelsObscure: const ["Password", "Conferma Password"],
+                  controllersObscure: password,
                 ),
                 ElevatedButton.icon(
-                    onPressed: () => {},
+                    onPressed: () async {
+                      if (password[0].text == password[1].text) {
+                        Student student = await MyConnector.createStudent(
+                            controllers[0].text,
+                            controllers[1].text,
+                            password[0].text);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (__) => Home(loggedUser: student))); 
+                      }
+                    },
                     icon: const Icon(Icons.person_add),
                     label: const Text("Crea Account da studente")),
               ]),

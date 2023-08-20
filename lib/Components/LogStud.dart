@@ -10,10 +10,14 @@ class LogStud extends StatefulWidget {
 
   List<TextEditingController> StudentControllers = [
     TextEditingController(),
-    TextEditingController(),
   ];
 
-  List<String> labels = ["Nome", "Password"];
+  List<TextEditingController> password = [
+    TextEditingController(),
+    
+  ];
+
+  List<String> labels = ["Nome"];
   dynamic user;
 
   @override
@@ -36,19 +40,21 @@ class _LogStudState extends State<LogStud> {
                 MyForm(
                   controllers: widget.StudentControllers,
                   labels: widget.labels,
+                  labelsObscure: ["Password"],
+                  controllersObscure: widget.password,
                   height: 200,
                 ),
                 ElevatedButton.icon(
                   onPressed: () async => {
                     if (widget.StudentControllers[0].text.isEmpty ||
-                        widget.StudentControllers[1].text.isEmpty)
+                        widget.password[0].text.isEmpty)
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content: Text("Inserisci tutti i campi")))
                     else
                       {
                         widget.user = await MyConnector.getStudente(
                             widget.StudentControllers[0].text,
-                            widget.StudentControllers[1].text),
+                            widget.password[0].text),
                         if (widget.user.name != "" && widget.user.surname != "")
                           {
                             Navigator.push(

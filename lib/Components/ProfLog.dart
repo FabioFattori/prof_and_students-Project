@@ -10,10 +10,12 @@ class ProfLog extends StatefulWidget {
 
   List<TextEditingController> ProfControllers = [
     TextEditingController(),
+  ];
+   List<TextEditingController> password = [
     TextEditingController(),
   ];
 
-  List<String> labels = ["Nome", "Password"];
+  List<String> labels = ["Nome"];
 
   dynamic user;
 
@@ -33,19 +35,21 @@ class _ProfLogState extends State<ProfLog> {
             MyForm(
               controllers: widget.ProfControllers,
               labels: widget.labels,
+              labelsObscure: [ "Password"],
+              controllersObscure: widget.password,
               height: 200,
             ),
             ElevatedButton.icon(
               onPressed: () async => {
                 if (widget.ProfControllers[0].text.isEmpty ||
-                    widget.ProfControllers[1].text.isEmpty)
+                    widget.password[0].text.isEmpty)
                   ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text("Inserisci tutti i campi")))
                 else
                   {
                     widget.user = await MyConnector.getProfessore(
                         widget.ProfControllers[0].text,
-                        widget.ProfControllers[1].text),
+                        widget.password[0].text),
                     if (widget.user.name != "" && widget.user.surname != "")
                       {
                         Navigator.push(

@@ -9,25 +9,26 @@ class BenvenutoProf extends StatefulWidget {
 
   final Prof prof;
 
+  late Future<List<Student>> studentiFuture;
+
+  TextEditingController _searchValue = TextEditingController();
+  late List<Student> studenti;
+  late List<Student> AllStudent;
   @override
   State<BenvenutoProf> createState() => _BenvenutoProfState();
 }
 
 class _BenvenutoProfState extends State<BenvenutoProf> {
-  late List<Student> studenti;
-
-  late Future<List<Student>> studentiFuture;
-
-  TextEditingController _searchValue = TextEditingController();
-
-  late List<Student> AllStudent;
+  void setVars() async {
+    widget.studenti = await widget.studentiFuture;
+    widget.AllStudent = widget.studenti;
+  }
 
   @override
-  void initState() async {
+  void initState() {
     super.initState();
-    studentiFuture = MyConnector.getStudentsOfProf(widget.prof.id);
-    studenti = await studentiFuture;
-    AllStudent = studenti;
+    widget.studentiFuture = MyConnector.getStudentsOfProf(widget.prof.id);
+    setVars();
   }
 
   @override
@@ -42,15 +43,15 @@ class _BenvenutoProfState extends State<BenvenutoProf> {
             border: UnderlineInputBorder(),
             labelText: 'Cerca per nome e/o cognome tra i tuoi studenti...',
           ),
-          controller: _searchValue,
+          controller: widget._searchValue,
           onChanged: (String value) async {
             if (value == "" || value == " ") {
               setState(() {
-                studenti = AllStudent;
+                widget.studenti = widget.AllStudent;
               });
             } else {
               setState(() {
-                studenti = AllStudent.where((singleobject) =>
+                widget.studenti = widget.AllStudent.where((singleobject) =>
                     singleobject.name
                         .toLowerCase()
                         .contains(value.toLowerCase()) ||
@@ -69,30 +70,33 @@ class _BenvenutoProfState extends State<BenvenutoProf> {
           ),
         ),
         FutureBuilder(
-            future: studentiFuture,
-            builder: (context, AsyncSnapshot<List<Student>> snapshot) {
-              if (snapshot.hasData) {
-                return GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3),
-                  shrinkWrap: true,
-                  itemCount: studenti.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      key: UniqueKey(),
-                        padding: const EdgeInsets.all(8.0),
-                        child: StudentCard(
-                          StudentData: studenti[index],
-                        ));
-                  },
-                );
-              } else if (snapshot.hasError) {
-                return Text("Errore: ${snapshot.error}");
-              } else {
-                return const Center(child: CircularProgressIndicator());
-              }
-            })
+             future: widget.studentiFuture,
+             builder: (context, AsyncSnapshot<List<Student>> snapshot) {
+               if (snapshot.hasData) {
+                 return GridView.builder(
+                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                       crossAxisCount: 3),
+                   shrinkWrap: true,
+                   itemCount: widget.studenti.length,
+        
+                   itemBuilder: (context, index) {
+                     return Padding(
+                       key: UniqueKey(),
+                         padding: const EdgeInsets.all(8.0),
+                         child: StudentCard(
+                           StudentData: widget.studenti[index],
+                           prof: widget.prof,
+                         ));
+                   },
+                 );
+               } else if (snapshot.hasError) {
+                 return Text("Errore: ${snapshot.error}");
+               } else {
+                 return const Center(child: CircularProgressIndicator());
+               }
+             })
       ],
     );
+    ;
   }
 }

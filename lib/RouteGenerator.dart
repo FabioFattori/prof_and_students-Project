@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:prof_and_studends/Components/StudentCard.dart';
+import 'package:prof_and_studends/Models/Prof.dart';
+import 'package:prof_and_studends/Models/Student.dart';
+import 'package:prof_and_studends/screens/AddGradeToStud.dart';
 import 'package:prof_and_studends/screens/CreateProf.dart';
 import 'package:prof_and_studends/screens/CreateStudent.dart';
 import 'package:prof_and_studends/screens/Login.dart';
@@ -40,6 +44,15 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => CreateStudent());
       case '/CreateProf':
         return MaterialPageRoute(builder: (_) => CreateProf());
+
+      case '/addVoto':
+        
+        if (args is toPassObject) {
+          return MaterialPageRoute(
+            builder: (_) => AddGrade(student: args.student, prof: args.prof),
+          );
+        }
+        return _errorRoute();
 
       default:
         return _errorRoute();

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:prof_and_studends/Models/Prof.dart';
 import '../Models/Student.dart';
 
 class StudentCard extends StatelessWidget {
-  StudentCard({Key? key, required this.StudentData}) : super(key: key);
-
+  StudentCard({Key? key, required this.StudentData,required this.prof}) : super(key: key);
+  late Prof prof;
   late Student StudentData;
 
   @override
@@ -18,7 +19,7 @@ class StudentCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             
-            Padding(padding: const EdgeInsets.all(8.0), child: Text("${StudentData.name} ${StudentData.surname}",style: const TextStyle(fontSize: 18,fontWeight: FontWeight.w400),),
+            Padding(padding: const EdgeInsets.all(8.0), child: Text("${StudentData.name} ${StudentData.surname}",style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w400),),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -30,7 +31,9 @@ class StudentCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(50),
                     color: Colors.blue,
                   ),
-                  child: IconButton(onPressed: ()=>{}, icon: const Icon(Icons.add,color: Colors.white,)),
+                  child: IconButton(onPressed: ()=>{
+                    Navigator.pushNamed(context, '/addVoto',arguments: toPassObject(StudentData,prof))
+                  }, icon: const Icon(Icons.add,color: Colors.white,)),
                 )
               ],
             )
@@ -39,4 +42,11 @@ class StudentCard extends StatelessWidget {
       ),
     );
   }
+}
+
+
+class toPassObject {
+  Student student;
+  Prof prof;
+  toPassObject(this.student,this.prof);
 }
